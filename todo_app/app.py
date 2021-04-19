@@ -1,15 +1,37 @@
-from flask import Flask
-
+from flask import Flask,render_template, request, redirect
 from todo_app.flask_config import Config
+from todo_app.data.session_items import get_items, add_item, save_item, get_item
 
+
+# create flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 
 
-@app.route('/')
+# index route 
+@app.route('/', methods = ["GET"])
 def index():
-    return 'Hello World!'
+    items = get_items()
+    return render_template('index.html', items = items)
+
+@app.route('/', methods = ["POST"])
+def newitem():
+    title = request.form.get('title')
+    add_item(title)
+    return redirect('/')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug = True)
