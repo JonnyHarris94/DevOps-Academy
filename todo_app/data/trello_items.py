@@ -1,7 +1,12 @@
 import requests
 import os
 
+class Card:
 
+    def __init__(self, id, status, title ):
+        self.id = id 
+        self.name = title
+        self.status = status
 
 def get_card():
     url = "https://api.trello.com/1/boards/N46znsdT/cards"
@@ -10,7 +15,11 @@ def get_card():
             'key': os.environ.get('TrelloAPI'),
             'token': os.environ.get('TrelloToken')
     }
-    return requests.get(url,params=query)
+    response = requests.get(url,params=query).json()
+    cards = []
+    for item in response:
+        cards.append(Card(item['id'],item['idList'],item['name']))
+    return cards
 
 def add_item(name):
     url = "https://api.trello.com/1/cards"

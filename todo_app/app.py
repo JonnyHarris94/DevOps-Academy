@@ -1,6 +1,5 @@
 from flask import Flask,render_template, request, redirect
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_items, add_item, save_item, get_item
 import todo_app.data.trello_items as trello_items 
 import requests
 
@@ -12,8 +11,8 @@ app.config.from_object(Config)
 # index route 
 @app.route('/', methods = ["GET"])
 def index():
-    cards = trello_items.get_card().json()
-    return render_template('index.html',cards=cards )
+    cards = trello_items.get_card()
+    return render_template('index.html',cards=cards)
 
 @app.route('/', methods = ["POST"])
 def newitem():
