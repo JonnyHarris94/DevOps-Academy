@@ -1,15 +1,44 @@
-from flask import Flask
-
+from flask import Flask,render_template, request, redirect
 from todo_app.flask_config import Config
+import todo_app.data.trello_items as trello_items 
+import requests
 
+# create flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 
 
-@app.route('/')
+# index route 
+@app.route('/', methods = ["GET"])
 def index():
-    return 'Hello World!'
+    cards = trello_items.get_card()
+    return render_template('index.html',cards=cards)
+
+@app.route('/', methods = ["POST"])
+def newitem():
+    title = request.form.get('title')
+    trello_items.add_item(title)
+    return redirect('/')
+
+@app.route('/close', methods = ["POST"])
+def complete_item():
+    id = request.args['id']
+    response = trello_items.complete_item(id) 
+    return redirect('/')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug = True)
