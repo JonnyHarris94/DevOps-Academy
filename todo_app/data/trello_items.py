@@ -8,6 +8,16 @@ class Card:
         self.name = title
         self.status = status
 
+class ViewModel:
+    def __init__(self, items):
+        self._items = items
+    @property
+    def items(self):
+        return self._items
+    @property
+    def todoitems(self):
+        return []
+
 def get_card():
     url = "https://api.trello.com/1/boards/N46znsdT/cards"
 
