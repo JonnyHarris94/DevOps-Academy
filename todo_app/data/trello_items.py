@@ -16,7 +16,11 @@ class ViewModel:
         return self._items
     @property
     def todoitems(self):
-        return []
+        cards = []
+        for todoitem in self._items:
+            if todoitem.status == '60c73323b5d71d7a754a20fc':
+                cards.append(todoitem)
+        return cards
 
 def get_card():
     url = "https://api.trello.com/1/boards/N46znsdT/cards"
