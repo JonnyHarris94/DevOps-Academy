@@ -12,3 +12,4 @@ FROM base as production
 RUN poetry add gunicorn
 ENTRYPOINT ["poetry","run","gunicorn","todo_app.app:create_app()", "-b","0.0.0.0:80"]
 
+##
