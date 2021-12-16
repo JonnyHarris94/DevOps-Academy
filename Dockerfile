@@ -4,6 +4,7 @@ WORKDIR /app
 COPY poetry.lock pyproject.toml .
 RUN poetry install
 COPY todo_app todo_app
+COPY test test
 
 FROM base as development
 ENTRYPOINT ["poetry","run","flask","run", "--host","0.0.0.0"]
@@ -12,3 +13,6 @@ FROM base as production
 RUN poetry add gunicorn
 ENTRYPOINT ["poetry","run","gunicorn","todo_app.app:create_app()", "-b","0.0.0.0:80"]
 
+# Docker Testing
+FROM base as test
+ENTRYPOINT ["poetry", "run", "pytest"]
