@@ -1,0 +1,19 @@
+name: Continuous Integration
+on:
+  push:
+    path-ignore:
+      - docs/README.md
+  pull_request:
+    branches:
+      - master
+    path-ignore:
+      - docs/README.md
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: docker build --target test --tag mytest .
+    - run: docker run --env-file .env.test mytest
