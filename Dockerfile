@@ -2,7 +2,7 @@ FROM python:3.9 as base
 RUN pip install poetry
 WORKDIR /app
 COPY poetry.lock pyproject.toml ./
-RUN poetry install
+RUN poetry config virtualenvs.create false --local && poetry install
 COPY todo_app todo_app
 COPY test test
 COPY entrypoint.sh entrypoint.sh
