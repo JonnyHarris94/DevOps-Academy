@@ -10,10 +10,10 @@ COPY entrypoint.sh entrypoint.sh
 FROM base as development
 ENTRYPOINT ["poetry","run","flask","run", "--host","0.0.0.0"]
 
-FROM base as production
-RUN poetry add gunicorn
-ENTRYPOINT ["sh","./entrypoint.sh"]
-
 # Docker Testing
 FROM base as test
 ENTRYPOINT ["poetry", "run", "pytest"]
+
+FROM base as production
+RUN poetry add gunicorn
+ENTRYPOINT ["sh","./entrypoint.sh"]
