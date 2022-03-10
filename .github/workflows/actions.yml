@@ -18,7 +18,7 @@ jobs:
     - run: docker build --target test --tag mytest .
     - run: docker run --env-file .env.test mytest
   prod-check:
-    if: ${{ github.ref == 'refs/heads/master' }}
+    #if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
     - run: echo "Deploying to production server on branch $GITHUB_REF"
@@ -39,6 +39,6 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "devopscourse1509" #Must be unique in Heroku
+        heroku_app_name: "testingdevopscourse1509" #Must be unique in Heroku
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
         usedocker: true
