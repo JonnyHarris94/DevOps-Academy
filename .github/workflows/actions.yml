@@ -19,7 +19,8 @@ jobs:
     - run: docker run --env-file .env.test mytest
   prod-check:
     #if: ${{ github.ref == 'refs/heads/master' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
+    needs: build
     steps:
     - run: echo "Deploying to production server on branch $GITHUB_REF"
 
