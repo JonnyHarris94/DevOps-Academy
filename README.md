@@ -61,3 +61,6 @@ $ docker run --env-file .env.test  -it  mytest
 #prod 
 $ docker build --target production --tag prod .
 $ docker run --env-file .env -it -p 5000:80  prod
+
+# Link to app that is hosted
+http://devopscourse1509.herokuapp.com/
