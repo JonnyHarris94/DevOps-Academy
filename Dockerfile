@@ -14,6 +14,8 @@ ENTRYPOINT ["poetry","run","flask","run", "--host","0.0.0.0"]
 FROM base as test
 ENTRYPOINT ["poetry", "run", "pytest"]
 
+#docker prod
 FROM base as production
 RUN poetry add gunicorn
 ENTRYPOINT ["sh","./entrypoint.sh"]
+
